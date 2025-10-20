@@ -1,0 +1,35 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+#include <memory>
+
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
+
+class GLHostWidget;
+class IRenderer;
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+private slots:
+    void swapButtonClicked();
+
+private:
+    Ui::MainWindow *ui;
+    GLHostWidget *m_hostA;
+    GLHostWidget *m_hostB;
+
+    // The window now owns the renderers.
+    // In a larger app, some other controller object might own them.
+    std::unique_ptr<IRenderer> m_rendererA;
+    std::unique_ptr<IRenderer> m_rendererB;
+};
+#endif // MAINWINDOW_H
