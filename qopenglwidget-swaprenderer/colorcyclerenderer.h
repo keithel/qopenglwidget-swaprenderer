@@ -1,7 +1,7 @@
 #ifndef COLORCYCLERENDERER_H
 #define COLORCYCLERENDERER_H
 
-#include "irenderer.h"
+#include "baserenderer.h"
 #include <QOpenGLFunctions_4_3_Core>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
@@ -11,7 +11,7 @@
 class QOpenGLShaderProgram;
 class QTimer;
 
-class ColorCycleRenderer : public IRenderer, protected QOpenGLFunctions_4_3_Core
+class ColorCycleRenderer : public BaseRenderer, protected QOpenGLFunctions_4_3_Core
 {
     Q_OBJECT
 public:

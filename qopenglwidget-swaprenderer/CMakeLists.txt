@@ -19,7 +19,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         glhostwidget.h
         glhostwidget.cpp
-        irenderer.h
+        baserenderer.h
+        baserenderer.cpp
         rotatingtrirenderer.h
         rotatingtrirenderer.cpp
         colorcyclerenderer.h

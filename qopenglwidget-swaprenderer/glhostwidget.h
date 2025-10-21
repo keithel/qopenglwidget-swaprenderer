@@ -4,7 +4,7 @@
 #include <QOpenGLWidget>
 #include <memory>
 
-class IRenderer;
+class BaseRenderer;
 
 // This is a generic container widget. Its only job is to host a renderer
 // and pass the OpenGL calls to it. It knows nothing about what is being drawn.
@@ -15,8 +15,8 @@ public:
     explicit GLHostWidget(QWidget *parent = nullptr);
     ~GLHostWidget();
 
-    void setRenderer(std::unique_ptr<IRenderer> renderer);
-    std::unique_ptr<IRenderer> takeRenderer();
+    void setRenderer(std::unique_ptr<BaseRenderer> renderer);
+    std::unique_ptr<BaseRenderer> takeRenderer();
 
 protected:
     void initializeGL() override;
@@ -24,7 +24,7 @@ protected:
     void resizeGL(int w, int h) override;
 
 private:
-    std::unique_ptr<IRenderer> m_renderer;
+    std::unique_ptr<BaseRenderer> m_renderer;
 };
 
 #endif // GLHOSTWIDGET_H

@@ -20,7 +20,8 @@ static const char *fragmentShaderSource =
     "}\n";
 
 RotatingTriWidget::RotatingTriWidget(QWidget *parent)
-    : m_timer(new QTimer(this))
+    : BaseGLWidget(parent)
+    , m_timer(new QTimer(this))
 {
     connect(m_timer, &QTimer::timeout, this, qOverload<>(&QWidget::update));
     m_timer->start(16);
@@ -37,6 +38,8 @@ RotatingTriWidget::~RotatingTriWidget()
 
 void RotatingTriWidget::initializeGL()
 {
+    BaseGLWidget::initializeGL();
+
     // This function is called ONCE per context creation.
     // When reparenting happens, a NEW context is created and this is called again.
     // However, the destructor above might not have been called for the old context,
@@ -55,6 +58,8 @@ void RotatingTriWidget::initializeGL()
 
 void RotatingTriWidget::paintGL()
 {
+    BaseGLWidget::paintGL();
+
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -76,6 +81,8 @@ void RotatingTriWidget::paintGL()
 
 void RotatingTriWidget::resizeGL(int w, int h)
 {
+    BaseGLWidget::resizeGL(w, h);
+
     m_projection.setToIdentity();
     m_projection.ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
 }

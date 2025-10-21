@@ -1,7 +1,7 @@
 #ifndef COLORCYCLEWIDGET_H
 #define COLORCYCLEWIDGET_H
 
-#include <QOpenGLWidget>
+#include "baseglwidget.h"
 #include <QOpenGLFunctions_4_3_Core>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
@@ -11,7 +11,7 @@
 class QOpenGLShaderProgram;
 class QTimer;
 
-class ColorCycleWidget : public QOpenGLWidget, QOpenGLFunctions_4_3_Core
+class ColorCycleWidget : public BaseGLWidget, QOpenGLFunctions_4_3_Core
 {
     Q_OBJECT
 public:

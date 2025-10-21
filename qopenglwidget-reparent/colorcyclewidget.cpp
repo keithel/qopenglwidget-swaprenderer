@@ -1,5 +1,6 @@
 #include "colorcyclewidget.h"
 #include <QOpenGLShaderProgram>
+#include <QElapsedTimer>
 #include <QTimer>
 #include <QDebug>
 #include <cmath>
@@ -23,7 +24,8 @@ static const char *cc_fragmentShaderSource =
     "}\n";
 
 ColorCycleWidget::ColorCycleWidget(QWidget *parent)
-    : m_timer(new QTimer(this))
+    : BaseGLWidget(parent)
+    , m_timer(new QTimer(this))
 {
     connect(m_timer, &QTimer::timeout, this, qOverload<>(&QWidget::update));
     m_timer->start(16);
@@ -41,6 +43,8 @@ ColorCycleWidget::~ColorCycleWidget()
 
 void ColorCycleWidget::initializeGL()
 {
+    BaseGLWidget::initializeGL();
+
     qDebug() << "ColorCycleWidget::initializeGL()";
     initializeOpenGLFunctions();
 
@@ -54,6 +58,8 @@ void ColorCycleWidget::initializeGL()
 
 void ColorCycleWidget::paintGL()
 {
+    BaseGLWidget::paintGL();
+
     glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -79,6 +85,8 @@ void ColorCycleWidget::paintGL()
 
 void ColorCycleWidget::resizeGL(int w, int h)
 {
+    BaseGLWidget::resizeGL(w, h);
+
     m_projection.setToIdentity();
     m_projection.ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
 }

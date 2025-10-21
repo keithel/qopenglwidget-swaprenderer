@@ -36,15 +36,19 @@ else()
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
+        find_package(Qt5 REQUIRED COMPONENTS Core)
+
         add_executable(qopenglwidget-reparent
             ${PROJECT_SOURCES}
             rotatingtriwidget.h rotatingtriwidget.cpp
             colorcyclewidget.h colorcyclewidget.cpp
+            baseglwidget.h baseglwidget.cpp
         )
     endif()
 endif()
 
 target_link_libraries(qopenglwidget-reparent PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(qopenglwidget-reparent PRIVATE Qt5::Core)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

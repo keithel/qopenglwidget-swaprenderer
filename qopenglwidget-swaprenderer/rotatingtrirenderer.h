@@ -1,7 +1,7 @@
 #ifndef ROTATINGTRIRENDERER_H
 #define ROTATINGTRIRENDERER_H
 
-#include "irenderer.h"
+#include "baserenderer.h"
 #include <QOpenGLFunctions_4_3_Core>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
@@ -10,7 +10,7 @@
 class QOpenGLShaderProgram;
 class QTimer;
 
-class RotatingTriRenderer : public IRenderer, protected QOpenGLFunctions_4_3_Core
+class RotatingTriRenderer : public BaseRenderer, protected QOpenGLFunctions_4_3_Core
 {
     Q_OBJECT
 public:

@@ -23,9 +23,10 @@ static const char *cc_fragmentShaderSource =
     "}\n";
 
 ColorCycleRenderer::ColorCycleRenderer()
-    : m_timer(new QTimer(this))
+    : BaseRenderer()
+    , m_timer(new QTimer(this))
 {
-    connect(m_timer, &QTimer::timeout, this, &IRenderer::needsUpdate);
+    connect(m_timer, &QTimer::timeout, this, &BaseRenderer::needsUpdate);
     m_timer->start(16);
     m_elapsedTimer.start();
 }
@@ -39,6 +40,8 @@ ColorCycleRenderer::~ColorCycleRenderer()
 
 void ColorCycleRenderer::initialize()
 {
+    BaseRenderer::initialize();
+
     qDebug() << "ColorCycleRenderer::initialize()";
     initializeOpenGLFunctions();
 
@@ -48,10 +51,14 @@ void ColorCycleRenderer::initialize()
     m_program->link();
 
     setup();
+
+    setInitialized(true);
 }
 
 void ColorCycleRenderer::paint()
 {
+    BaseRenderer::paint();
+
     glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 

@@ -22,9 +22,10 @@ static const char *fragmentShaderSource =
 
 
 RotatingTriRenderer::RotatingTriRenderer()
-    : m_timer(new QTimer(this))
+    : BaseRenderer()
+    , m_timer(new QTimer(this))
 {
-    connect(m_timer, &QTimer::timeout, this, &IRenderer::needsUpdate);
+    connect(m_timer, &QTimer::timeout, this, &BaseRenderer::needsUpdate);
     m_timer->start(16);
 }
 
@@ -39,6 +40,8 @@ RotatingTriRenderer::~RotatingTriRenderer()
 
 void RotatingTriRenderer::initialize()
 {
+    BaseRenderer::initialize();
+
     qDebug() << "RotatingTriRenderer::initialize()";
     initializeOpenGLFunctions();
 
@@ -48,10 +51,14 @@ void RotatingTriRenderer::initialize()
     m_program->link();
 
     setup();
+
+    setInitialized(true);
 }
 
 void RotatingTriRenderer::paint()
 {
+    BaseRenderer::paint();
+
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 

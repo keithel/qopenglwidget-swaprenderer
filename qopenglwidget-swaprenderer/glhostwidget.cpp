@@ -1,5 +1,5 @@
 #include "glhostwidget.h"
-#include "irenderer.h"
+#include "baserenderer.h"
 #include <QDebug>
 #include <QOpenGLContext>
 #include <QOpenGLFunctions>
@@ -21,11 +21,11 @@ GLHostWidget::~GLHostWidget()
     }
 }
 
-void GLHostWidget::setRenderer(std::unique_ptr<IRenderer> renderer)
+void GLHostWidget::setRenderer(std::unique_ptr<BaseRenderer> renderer)
 {
     if (m_renderer && isValid()) {
         makeCurrent();
-        disconnect(m_renderer.get(), &IRenderer::needsUpdate, this, qOverload<>(&QWidget::update));
+        disconnect(m_renderer.get(), &BaseRenderer::needsUpdate, this, qOverload<>(&QWidget::update));
         doneCurrent();
     }
 
@@ -33,9 +33,9 @@ void GLHostWidget::setRenderer(std::unique_ptr<IRenderer> renderer)
 
     if (m_renderer) {
         // Connect the renderer's request for an update to our update() slot.
-        connect(m_renderer.get(), &IRenderer::needsUpdate, this, qOverload<>(&QWidget::update));
-        if (isValid()) {
-            qDebug() << "Context is valid, initializing renderer.";
+        connect(m_renderer.get(), &BaseRenderer::needsUpdate, this, qOverload<>(&QWidget::update));
+        if (isValid() && !m_renderer->isInitialized()) {
+            // qDebug() << "Context is valid, initializing renderer.";
             makeCurrent();
             m_renderer->initialize();
             doneCurrent();
@@ -46,10 +46,10 @@ void GLHostWidget::setRenderer(std::unique_ptr<IRenderer> renderer)
     }
 }
 
-std::unique_ptr<IRenderer> GLHostWidget::takeRenderer()
+std::unique_ptr<BaseRenderer> GLHostWidget::takeRenderer()
 {
     if (m_renderer)
-        disconnect(m_renderer.get(), &IRenderer::needsUpdate, this, qOverload<>(&QWidget::update));
+        disconnect(m_renderer.get(), &BaseRenderer::needsUpdate, this, qOverload<>(&QWidget::update));
     return std::move(m_renderer);
 }
 

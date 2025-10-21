@@ -1,7 +1,7 @@
 #ifndef ROTATINGTRIWIDGET_H
 #define ROTATINGTRIWIDGET_H
 
-#include <QOpenGLWidget>
+#include "baseglwidget.h"
 #include <QOpenGLFunctions_4_3_Core>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
@@ -10,7 +10,7 @@
 class QOpenGLShaderProgram;
 class QTimer;
 
-class RotatingTriWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_3_Core
+class RotatingTriWidget : public BaseGLWidget, protected QOpenGLFunctions_4_3_Core
 {
     Q_OBJECT
 public:
