@@ -1,7 +1,7 @@
 #include "colorcyclerenderer.h"
+#include "logging.h"
 #include <QOpenGLShaderProgram>
 #include <QTimer>
-#include <QDebug>
 #include <cmath>
 
 static const char *cc_vertexShaderSource =
@@ -42,7 +42,7 @@ void ColorCycleRenderer::initialize()
 {
     BaseRenderer::initialize();
 
-    qDebug() << "ColorCycleRenderer::initialize()";
+    qCDebug(perf) << "ColorCycleRenderer::initialize()";
     initializeOpenGLFunctions();
 
     m_program = new QOpenGLShaderProgram();

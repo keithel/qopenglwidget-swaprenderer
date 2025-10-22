@@ -1,4 +1,5 @@
 #include "rotatingtriwidget.h"
+#include "logging.h"
 #include <QOpenGLShaderProgram>
 #include <QTimer>
 
@@ -44,7 +45,7 @@ void RotatingTriWidget::initializeGL()
     // When reparenting happens, a NEW context is created and this is called again.
     // However, the destructor above might not have been called for the old context,
     // or resource IDs can get mixed up, leading to issues.
-    qDebug() << "RotatingTriWidget::initializeGL()";
+    qCDebug(perf) << "RotatingTriWidget::initializeGL()";
 
     initializeOpenGLFunctions();
 

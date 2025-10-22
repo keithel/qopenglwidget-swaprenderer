@@ -1,6 +1,6 @@
 #include "glhostwidget.h"
 #include "baserenderer.h"
-#include <QDebug>
+#include "logging.h"
 #include <QOpenGLContext>
 #include <QOpenGLFunctions>
 
@@ -35,13 +35,13 @@ void GLHostWidget::setRenderer(std::unique_ptr<BaseRenderer> renderer)
         // Connect the renderer's request for an update to our update() slot.
         connect(m_renderer.get(), &BaseRenderer::needsUpdate, this, qOverload<>(&QWidget::update));
         if (isValid() && !m_renderer->isInitialized()) {
-            // qDebug() << "Context is valid, initializing renderer.";
+            qCDebug(perf) << "Context is valid, initializing renderer.";
             makeCurrent();
             m_renderer->initialize();
             doneCurrent();
         }
         else {
-            qDebug() << "Context not valid yet. Deferring renderer initialization.";
+            qCDebug(perf) << "Context not valid yet. Deferring renderer initialization.";
         }
     }
 }
@@ -56,7 +56,7 @@ std::unique_ptr<BaseRenderer> GLHostWidget::takeRenderer()
 
 void GLHostWidget::initializeGL()
 {
-    qDebug() << "GLHostWidget::initializeGL() initializing renderer.";
+    qCInfo(perf) << "GLHostWidget::initializeGL() initializing renderer.";
     if (m_renderer) {
         m_renderer->initialize();
     }

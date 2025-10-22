@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "rotatingtriwidget.h"
 #include "colorcyclewidget.h"
+#include "logging.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -41,7 +42,7 @@ void MainWindow::swapButtonClicked()
     // out and put them back in the opposite order. This action is
     // what triggers the reparenting and context destruction.
     if (isA_first) {
-        qDebug() << "RotatingTriWidget is first";
+        qCDebug(perf) << "RotatingTriWidget is first";
         // Detach widgets from the splitter. This effectively sets their parent to null.
         m_widgetA->setParent(nullptr);
         m_widgetB->setParent(nullptr);
@@ -49,7 +50,7 @@ void MainWindow::swapButtonClicked()
         ui->splitter->insertWidget(0, m_widgetB);
         ui->splitter->insertWidget(1, m_widgetA);
     } else {
-        qDebug() << "ColorCycleWidget is first";
+        qCDebug(perf) << "ColorCycleWidget is first";
         m_widgetA->setParent(nullptr);
         m_widgetB->setParent(nullptr);
         ui->splitter->insertWidget(0, m_widgetA);

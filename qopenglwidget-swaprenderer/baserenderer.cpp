@@ -1,7 +1,8 @@
 #include "baserenderer.h"
+#include "logging.h"
 #include <QTimer>
 #include <QString>
-#include <QDebug>
+#include <algorithm>
 
 BaseRenderer::BaseRenderer()
     : QObject()
@@ -11,20 +12,21 @@ BaseRenderer::BaseRenderer()
         if (m_paintGLElapsedTimes.empty())
             return;
 
-        uint maxVal = 0;
-        QString timesList;
-        for(int i = 0; i < m_paintGLElapsedTimes.size(); i++) {
-            auto time = m_paintGLElapsedTimes.at(i);
-            if (time > maxVal)
-                maxVal = time;
-            timesList.append(QString::number(m_paintGLElapsedTimes.at(i)));
-            if (i < m_paintGLElapsedTimes.size()-1)
-                timesList.append(", ");
-            else
-                timesList.append("ms");
+        uint maxVal = *std::max_element(m_paintGLElapsedTimes.constBegin(), m_paintGLElapsedTimes.constEnd());
+        qCInfo(perf) << metaObject()->className() << "init or swap paintGL took max" << maxVal << "ms over 1s.";
+
+        if (perf().isInfoEnabled()) {
+            QString timesList;
+            for(int i = 0; i < m_paintGLElapsedTimes.size(); i++) {
+                timesList.append(QString::number(m_paintGLElapsedTimes.at(i)));
+                if (i < m_paintGLElapsedTimes.size()-1)
+                    timesList.append(", ");
+                else
+                    timesList.append("ms");
+            }
+            qCDebug(perf) << metaObject()->className() << "  Last 1s times:" << timesList;
         }
         m_paintGLElapsedTimes.clear();
-        qDebug() << metaObject()->className() << "init or swap paintGL took max" << maxVal << "ms. Last 1s times:" << timesList;
     });
 
     m_printPaintGLTimesTimer->start(1000);

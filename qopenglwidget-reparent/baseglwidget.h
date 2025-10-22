@@ -12,9 +12,6 @@ class BaseGLWidget : public QOpenGLWidget
 public:
     BaseGLWidget(QWidget *parent = nullptr);
 
-public slots:
-    void resetPaintGLTimer();
-
     // QOpenGLWidget interface
 protected:
     void paintGL() override;

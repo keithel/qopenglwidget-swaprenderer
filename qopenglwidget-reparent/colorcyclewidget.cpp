@@ -1,8 +1,8 @@
 #include "colorcyclewidget.h"
+#include "logging.h"
 #include <QOpenGLShaderProgram>
 #include <QElapsedTimer>
 #include <QTimer>
-#include <QDebug>
 #include <cmath>
 
 static const char *cc_vertexShaderSource =
@@ -45,7 +45,7 @@ void ColorCycleWidget::initializeGL()
 {
     BaseGLWidget::initializeGL();
 
-    qDebug() << "ColorCycleWidget::initializeGL()";
+    qCDebug(perf) << "ColorCycleWidget::initializeGL()";
     initializeOpenGLFunctions();
 
     m_program = new QOpenGLShaderProgram(this);

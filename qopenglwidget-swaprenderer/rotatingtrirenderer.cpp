@@ -1,7 +1,7 @@
 #include "rotatingtrirenderer.h"
+#include "logging.h"
 #include <QOpenGLShaderProgram>
 #include <QTimer>
-#include <QDebug>
 
 static const char *vertexShaderSource =
     "#version 430 core\n"
@@ -42,7 +42,7 @@ void RotatingTriRenderer::initialize()
 {
     BaseRenderer::initialize();
 
-    qDebug() << "RotatingTriRenderer::initialize()";
+    qCDebug(perf) << "RotatingTriRenderer::initialize()";
     initializeOpenGLFunctions();
 
     m_program = new QOpenGLShaderProgram();
