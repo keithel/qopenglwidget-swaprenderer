@@ -30,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_hostA->setRenderer(std::move(m_rendererA));
     m_hostB->setRenderer(std::move(m_rendererB));
 
-    connect(ui->swapButton, &QPushButton::clicked, this, &MainWindow::swapContent);
     connect(m_swapTimer, &QTimer::timeout, this, &MainWindow::swapContent);
     m_swapTimer->start(160);
 }

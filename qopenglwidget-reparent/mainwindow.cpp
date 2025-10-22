@@ -20,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->splitter->setStretchFactor(0, 1);
     ui->splitter->setStretchFactor(1, 1);
 
-    connect(ui->swapButton, &QPushButton::clicked, this, &MainWindow::swapContent);
     connect(m_swapTimer, &QTimer::timeout, this, &MainWindow::swapContent);
     m_swapTimer->start(160);
 }

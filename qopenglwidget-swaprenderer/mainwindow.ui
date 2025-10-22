@@ -28,13 +28,6 @@
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QPushButton" name="swapButton">
-      <property name="text">
-       <string>Swap Renderers</string>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -47,7 +40,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
