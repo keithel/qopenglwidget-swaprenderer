@@ -13,7 +13,7 @@ BaseGLWidget::BaseGLWidget(QWidget *parent)
             return;
 
         uint maxVal = *std::max_element(m_paintGLElapsedTimes.constBegin(), m_paintGLElapsedTimes.constEnd());
-        qCInfo(perf) << metaObject()->className() << "init or swap paintGL took max" << maxVal << "ms over 1s.";
+        qCInfo(perf) << metaObject()->className() << m_initGLCount << "init or swap paintGL took max" << maxVal << "ms over 1s.";
 
         if (perf().isInfoEnabled()) {
             QString timesList;
@@ -27,6 +27,7 @@ BaseGLWidget::BaseGLWidget(QWidget *parent)
             qCDebug(perf) << metaObject()->className() << "  Last 1s times:" << timesList;
         }
         m_paintGLElapsedTimes.clear();
+        m_initGLCount = 0;
     });
 
     m_printPaintGLTimesTimer->start(1000);
@@ -35,6 +36,7 @@ BaseGLWidget::BaseGLWidget(QWidget *parent)
 void BaseGLWidget::initializeGL()
 {
     m_paintGLElapsedTimer.start();
+    m_initGLCount++;
 }
 
 void BaseGLWidget::paintGL()

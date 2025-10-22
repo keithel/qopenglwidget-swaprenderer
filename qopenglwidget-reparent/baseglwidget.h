@@ -21,6 +21,7 @@ private:
     QElapsedTimer m_paintGLElapsedTimer;
     QList<uint> m_paintGLElapsedTimes;
     QTimer *m_printPaintGLTimesTimer;
+    uint m_initGLCount = 0;
 };
 
 #endif // BASEGLWIDGET_H

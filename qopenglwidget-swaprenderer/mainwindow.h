@@ -10,6 +10,7 @@ QT_END_NAMESPACE
 
 class GLHostWidget;
 class BaseRenderer;
+class QTimer;
 
 class MainWindow : public QMainWindow
 {
@@ -20,7 +21,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void swapButtonClicked();
+    void swapContent();
 
 private:
     Ui::MainWindow *ui;
@@ -31,5 +32,6 @@ private:
     // In a larger app, some other controller object might own them.
     std::unique_ptr<BaseRenderer> m_rendererA;
     std::unique_ptr<BaseRenderer> m_rendererB;
+    QTimer *m_swapTimer;
 };
 #endif // MAINWINDOW_H

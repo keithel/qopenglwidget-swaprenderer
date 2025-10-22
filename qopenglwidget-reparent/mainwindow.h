@@ -11,6 +11,7 @@ QT_END_NAMESPACE
 
 class RotatingTriWidget;
 class ColorCycleWidget;
+class QTimer;
 
 class MainWindow : public QMainWindow
 {
@@ -21,11 +22,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void swapButtonClicked();
+    void swapContent();
 
 private:
     Ui::MainWindow *ui;
     RotatingTriWidget *m_widgetA;
     ColorCycleWidget *m_widgetB;
+    QTimer *m_swapTimer = nullptr;
 };
 #endif // MAINWINDOW_H

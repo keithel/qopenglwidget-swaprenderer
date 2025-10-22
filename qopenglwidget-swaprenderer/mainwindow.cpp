@@ -3,10 +3,12 @@
 #include "glhostwidget.h"
 #include "rotatingtrirenderer.h"
 #include "colorcyclerenderer.h"
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_swapTimer(new QTimer(this))
 {
     ui->setupUi(this);
 
@@ -28,7 +30,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_hostA->setRenderer(std::move(m_rendererA));
     m_hostB->setRenderer(std::move(m_rendererB));
 
-    connect(ui->swapButton, &QPushButton::clicked, this, &MainWindow::swapButtonClicked);
+    connect(ui->swapButton, &QPushButton::clicked, this, &MainWindow::swapContent);
+    connect(m_swapTimer, &QTimer::timeout, this, &MainWindow::swapContent);
+    m_swapTimer->start(160);
 }
 
 MainWindow::~MainWindow()
@@ -36,7 +40,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::swapButtonClicked()
+void MainWindow::swapContent()
 {
     // THIS IS THE RECOMMENDED PATTERN.
     // We are not touching the widgets at all. We are only changing which

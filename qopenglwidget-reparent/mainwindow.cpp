@@ -3,10 +3,12 @@
 #include "rotatingtriwidget.h"
 #include "colorcyclewidget.h"
 #include "logging.h"
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_swapTimer(new QTimer(this))
 {
     ui->setupUi(this);
 
@@ -18,7 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->splitter->setStretchFactor(0, 1);
     ui->splitter->setStretchFactor(1, 1);
 
-    connect(ui->swapButton, &QPushButton::clicked, this, &MainWindow::swapButtonClicked);
+    connect(ui->swapButton, &QPushButton::clicked, this, &MainWindow::swapContent);
+    connect(m_swapTimer, &QTimer::timeout, this, &MainWindow::swapContent);
+    m_swapTimer->start(160);
 }
 
 MainWindow::~MainWindow()
@@ -26,7 +30,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::swapButtonClicked()
+void MainWindow::swapContent()
 {
     // Reparent the widgets
     // This is the anti-pattern. We are physically moving the widgets.

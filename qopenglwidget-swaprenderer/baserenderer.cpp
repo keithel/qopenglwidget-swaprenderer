@@ -13,7 +13,7 @@ BaseRenderer::BaseRenderer()
             return;
 
         uint maxVal = *std::max_element(m_paintGLElapsedTimes.constBegin(), m_paintGLElapsedTimes.constEnd());
-        qCInfo(perf) << metaObject()->className() << "init or swap paintGL took max" << maxVal << "ms over 1s.";
+        qCInfo(perf) << metaObject()->className() << m_initGLCount << "init or swap paintGL took max" << maxVal << "ms over 1s.";
 
         if (perf().isInfoEnabled()) {
             QString timesList;
@@ -27,6 +27,7 @@ BaseRenderer::BaseRenderer()
             qCDebug(perf) << metaObject()->className() << "  Last 1s times:" << timesList;
         }
         m_paintGLElapsedTimes.clear();
+        m_initGLCount = 0;
     });
 
     m_printPaintGLTimesTimer->start(1000);
@@ -35,6 +36,7 @@ BaseRenderer::BaseRenderer()
 void BaseRenderer::initialize()
 {
     m_paintGLElapsedTimer.start();
+    m_initGLCount++;
 }
 
 void BaseRenderer::paint()

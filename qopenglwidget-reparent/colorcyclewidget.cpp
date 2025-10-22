@@ -45,7 +45,6 @@ void ColorCycleWidget::initializeGL()
 {
     BaseGLWidget::initializeGL();
 
-    qCDebug(perf) << "ColorCycleWidget::initializeGL()";
     initializeOpenGLFunctions();
 
     m_program = new QOpenGLShaderProgram(this);

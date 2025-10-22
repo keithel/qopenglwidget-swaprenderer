@@ -41,7 +41,9 @@ private:
     QElapsedTimer m_paintGLElapsedTimer;
     QList<uint> m_paintGLElapsedTimes;
     QTimer *m_printPaintGLTimesTimer;
+    uint m_initGLCount = 0;
 };
+
 
 bool BaseRenderer::isInitialized() {
     return m_initialized;

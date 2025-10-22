@@ -45,8 +45,7 @@ void RotatingTriWidget::initializeGL()
     // When reparenting happens, a NEW context is created and this is called again.
     // However, the destructor above might not have been called for the old context,
     // or resource IDs can get mixed up, leading to issues.
-    qCDebug(perf) << "RotatingTriWidget::initializeGL()";
-
+    //
     initializeOpenGLFunctions();
 
     m_program = new QOpenGLShaderProgram(this);
